@@ -6,20 +6,16 @@ var _require = require("mongoose"),
 
 var ProductSchema = new Schema({
   name: {
-    type: String,
-    required: true
+    type: String
   },
   price: {
-    type: Number,
-    required: true
+    type: Number
   },
   description: {
-    type: String,
-    required: true
+    type: String
   },
   image: {
-    type: String,
-    required: true
+    type: String
   }
 }, {
   timestamps: true

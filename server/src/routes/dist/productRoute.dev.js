@@ -93,7 +93,8 @@ var deleteProduct = function deleteProduct(req, res) {
         case 4:
           product = _context3.sent;
           res.send({
-            message: "Product removed successfully"
+            message: "Product removed successfully",
+            product: product
           });
           _context3.next = 11;
           break;
@@ -114,43 +115,38 @@ var deleteProduct = function deleteProduct(req, res) {
 };
 
 var updateProduct = function updateProduct(req, res) {
-  var productId, updated, _updateProduct;
-
+  var product, prod;
   return regeneratorRuntime.async(function updateProduct$(_context4) {
     while (1) {
       switch (_context4.prev = _context4.next) {
         case 0:
           _context4.prev = 0;
-          productId = req.params.id;
-          updated = req.body;
-          _context4.next = 5;
-          return regeneratorRuntime.awrap(ProductModel.findByIdAndUpdate({
-            _id: productId,
-            updated: updated
-          }));
+          _context4.next = 3;
+          return regeneratorRuntime.awrap(ProductModel.findById(req.params.id));
 
-        case 5:
-          _updateProduct = _context4.sent;
-          res.status(200).send({
-            message: "Updated successfully",
-            updateProduct: _updateProduct
-          });
-          _context4.next = 12;
+        case 3:
+          product = _context4.sent;
+          product.price = req.body.price;
+          _context4.next = 7;
+          return regeneratorRuntime.awrap(product.save());
+
+        case 7:
+          prod = _context4.sent;
+          res.send(prod);
+          _context4.next = 14;
           break;
 
-        case 9:
-          _context4.prev = 9;
+        case 11:
+          _context4.prev = 11;
           _context4.t0 = _context4["catch"](0);
-          res.send({
-            message: _context4.t0
-          }).status(400);
+          res.send(_context4.t0);
 
-        case 12:
+        case 14:
         case "end":
           return _context4.stop();
       }
     }
-  }, null, null, [[0, 9]]);
+  }, null, null, [[0, 11]]);
 };
 
 module.exports = {

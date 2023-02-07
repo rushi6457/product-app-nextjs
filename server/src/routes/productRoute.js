@@ -34,21 +34,22 @@ const deleteProduct = async(req,res) =>{
     let {id} = req.params;
     try {
         let product = await ProductModel.findOneAndDelete({_id:id})
-        res.send({message:"Product removed successfully"}) 
+        res.send({message:"Product removed successfully",product}) 
     } catch (error) {
         res.send({message:error})
     }
 }
 const updateProduct = async(req,res) =>{
-   
+
     try {
-         let productId = req.params.id;
-        let updated = req.body;
-        let updateProduct = await ProductModel.findByIdAndUpdate({_id:productId, updated})
-        res.status(200).send({message:"Updated successfully",updateProduct})
+        let product = await ProductModel.findById(req.params.id)
+        product.price = req.body.price
+        const prod  = await product.save()
+        res.send(prod)
     } catch (error) {
-        res.send({message:error}).status(400)
+        res.send(error)
     }
+
 }
 
 module.exports = {
