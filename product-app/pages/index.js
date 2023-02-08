@@ -17,7 +17,7 @@ export default function Home() {
       name:'',
       price:'',
       description:'',
-      url:''
+      image:''
   })
 
   
@@ -34,10 +34,10 @@ export default function Home() {
   const handleSubmit =async (e) =>{
     e.preventDefault();
       const res = await axios.post(`http://localhost:8080/addproduct`,product)
-      setData({...res.data})
-      router.push("/product")
+      setData(res.data)
+      console.log(res.data);
+      // router.push("/product")
   }
- 
 
   return (
     <>
@@ -58,7 +58,7 @@ export default function Home() {
           <FormLabel>Product  description</FormLabel>
           <Input type='text' name='description' onChange={handleChange}></Input>
           <FormLabel>Product image URL</FormLabel>
-          <Input type='text' name='url' onChange={handleChange}></Input>
+          <Input type='text' name='image' onChange={handleChange}></Input>
           <Button colorScheme='green' onClick={handleSubmit} type='submit' mt={'4'} w='100%'>ADD PRODUCT</Button>
         </Container>
       </FormControl>

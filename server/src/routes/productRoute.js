@@ -13,7 +13,7 @@ const addProducts = async(req,res) =>{
         })
 
        await newProduct.save()
-        res.status(200).send({message:"Products added successfully"})
+        res.status(200).send({message:"Products added successfully",newProduct})
     } catch (error) {
         res.send({message:error})
     }

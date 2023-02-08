@@ -24,7 +24,8 @@ var addProducts = function addProducts(req, res) {
 
         case 5:
           res.status(200).send({
-            message: "Products added successfully"
+            message: "Products added successfully",
+            newProduct: newProduct
           });
           _context.next = 11;
           break;
