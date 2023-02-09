@@ -1,4 +1,4 @@
-import { Button, Center, Flex, Grid, GridItem, Image, Text } from '@chakra-ui/react';
+import { Button, Center, Container, Flex, Grid, GridItem, Image, Select, Text } from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
@@ -29,6 +29,22 @@ const Product = () => {
 
     return (
         <div>
+            <Flex>
+            <Container width={'fit-content'}>
+            <Select>
+                <option value="">Select order</option>
+                <option value=""></option>
+                <option value=""></option>
+            </Select>
+            </Container>
+                <Container width={'fit-content'}>
+            <Select>
+                <option value=""></option>
+                <option value=""></option>
+                <option value=""></option>
+            </Select>
+            </Container>
+            </Flex>
             <Grid gridTemplateColumns={'repeat(4,1fr)'} gap='6' padding={'10'} >
                  {
                      data?.map((el)=>{
@@ -39,8 +55,8 @@ const Product = () => {
                             </Center>
                                 <Text textAlign={'justify'}>{el.name}</Text>
                                 <Flex justifyContent={'space-between'} padding={'2'}>
-                                    <Button onClick={()=>handleDelete(el._id)}>Delete</Button>
-                                    <Button onClick={handleEdit}>Edit Price</Button>
+                                    <Button variant={'outline'} colorScheme={'red'} onClick={()=>handleDelete(el._id)}>Delete</Button>
+                                    <Button variant={'outline'} colorScheme={'red'} onClick={handleEdit}>Edit Price</Button>
                                 </Flex>
                          </GridItem>
                     )
