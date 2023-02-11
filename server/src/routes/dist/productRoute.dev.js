@@ -45,44 +45,52 @@ var addProducts = function addProducts(req, res) {
   }, null, null, [[1, 8]]);
 };
 
+var getPagination = function getPagination(page, size) {
+  var limit = size ? +size : 3;
+  var offset = page ? page * limit : 0;
+  return {
+    limit: limit,
+    offset: offset
+  };
+};
+
 var getProducts = function getProducts(req, res) {
-  var limit, products;
+  var _req$query, page, size, _getPagination, limit, offset, products;
+
   return regeneratorRuntime.async(function getProducts$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
           _context2.prev = 0;
-          // const page = parseInt(req.params.page) -1 || 0;
-          // const sort = req.query.sort || 'price';
-          // let order = req.query.order;
-          limit = req.query.limit; // const skip = page * limit
+          _req$query = req.query, page = _req$query.page, size = _req$query.size;
+          _getPagination = getPagination(page, size), limit = _getPagination.limit, offset = _getPagination.offset;
+          console.log(page, size, limit, offset);
+          _context2.next = 6;
+          return regeneratorRuntime.awrap(ProductModel.find().limit(limit).skip(offset));
 
-          _context2.next = 4;
-          return regeneratorRuntime.awrap(ProductModel.find().limit(limit));
-
-        case 4:
+        case 6:
           products = _context2.sent;
           // .limit(limit).skip(page * limit)
           // .sort(sortBy).skip(page * limit).limit(limit)
           res.status(200).send({
             message: products
           });
-          _context2.next = 11;
+          _context2.next = 13;
           break;
 
-        case 8:
-          _context2.prev = 8;
+        case 10:
+          _context2.prev = 10;
           _context2.t0 = _context2["catch"](0);
           res.send({
             message: _context2.t0
           });
 
-        case 11:
+        case 13:
         case "end":
           return _context2.stop();
       }
     }
-  }, null, null, [[0, 8]]);
+  }, null, null, [[0, 10]]);
 };
 
 var deleteProduct = function deleteProduct(req, res) {

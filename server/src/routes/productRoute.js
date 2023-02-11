@@ -19,17 +19,21 @@ const addProducts = async(req,res) =>{
     }
 }
 
+const getPagination = (page,size) =>{
+    const limit = size ? +size : 3;
+     const offset = page ? page * limit : 0;
+
+  return { limit, offset };
+}
+
 const getProducts =async (req, res) => {
   
     try {
-        // const page = parseInt(req.params.page) -1 || 0;
-        // const sort = req.query.sort || 'price';
-        // let order = req.query.order;
-        let limit = req.query.limit;
         
-        // const skip = page * limit
-      
-        let products = await ProductModel.find().limit(limit)
+         const { page, size } = req.query;
+          const { limit, offset } = getPagination(page, size);
+        console.log(page, size, limit, offset);
+        let products = await ProductModel.find().limit(limit).skip(offset)
         // .limit(limit).skip(page * limit)
         // .sort(sortBy).skip(page * limit).limit(limit)
       
