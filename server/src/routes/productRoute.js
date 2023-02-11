@@ -20,10 +20,20 @@ const addProducts = async(req,res) =>{
 }
 
 const getProducts =async (req, res) => {
+  
     try {
-        let products = await ProductModel.find()
-
-        res.send({message:products}).status(200)
+        // const page = parseInt(req.params.page) -1 || 0;
+        // const sort = req.query.sort || 'price';
+        // let order = req.query.order;
+        let limit = req.query.limit;
+        
+        // const skip = page * limit
+      
+        let products = await ProductModel.find().limit(limit)
+        // .limit(limit).skip(page * limit)
+        // .sort(sortBy).skip(page * limit).limit(limit)
+      
+        res.status(200).send({message:products})
     } catch (error) {
         res.send({message:error})
     }

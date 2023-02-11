@@ -46,36 +46,43 @@ var addProducts = function addProducts(req, res) {
 };
 
 var getProducts = function getProducts(req, res) {
-  var products;
+  var limit, products;
   return regeneratorRuntime.async(function getProducts$(_context2) {
     while (1) {
       switch (_context2.prev = _context2.next) {
         case 0:
           _context2.prev = 0;
-          _context2.next = 3;
-          return regeneratorRuntime.awrap(ProductModel.find());
+          // const page = parseInt(req.params.page) -1 || 0;
+          // const sort = req.query.sort || 'price';
+          // let order = req.query.order;
+          limit = req.query.limit; // const skip = page * limit
 
-        case 3:
+          _context2.next = 4;
+          return regeneratorRuntime.awrap(ProductModel.find().limit(limit));
+
+        case 4:
           products = _context2.sent;
-          res.send({
+          // .limit(limit).skip(page * limit)
+          // .sort(sortBy).skip(page * limit).limit(limit)
+          res.status(200).send({
             message: products
-          }).status(200);
-          _context2.next = 10;
+          });
+          _context2.next = 11;
           break;
 
-        case 7:
-          _context2.prev = 7;
+        case 8:
+          _context2.prev = 8;
           _context2.t0 = _context2["catch"](0);
           res.send({
             message: _context2.t0
           });
 
-        case 10:
+        case 11:
         case "end":
           return _context2.stop();
       }
     }
-  }, null, null, [[0, 7]]);
+  }, null, null, [[0, 8]]);
 };
 
 var deleteProduct = function deleteProduct(req, res) {
