@@ -52,11 +52,18 @@ const updateProduct = async(req,res) =>{
 
 }
 
+const getSingleProduct = async(req,res) =>{
+
+    let product = await ProductModel.findById(req.params.id)
+    res.send({message: product}).status(200)
+}
+
 module.exports = {
     addProducts,
     getProducts,
     deleteProduct,
-    updateProduct
+    updateProduct,
+    getSingleProduct
 }
 
 

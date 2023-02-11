@@ -150,9 +150,33 @@ var updateProduct = function updateProduct(req, res) {
   }, null, null, [[0, 11]]);
 };
 
+var getSingleProduct = function getSingleProduct(req, res) {
+  var product;
+  return regeneratorRuntime.async(function getSingleProduct$(_context5) {
+    while (1) {
+      switch (_context5.prev = _context5.next) {
+        case 0:
+          _context5.next = 2;
+          return regeneratorRuntime.awrap(ProductModel.findById(req.params.id));
+
+        case 2:
+          product = _context5.sent;
+          res.send({
+            message: product
+          }).status(200);
+
+        case 4:
+        case "end":
+          return _context5.stop();
+      }
+    }
+  });
+};
+
 module.exports = {
   addProducts: addProducts,
   getProducts: getProducts,
   deleteProduct: deleteProduct,
-  updateProduct: updateProduct
+  updateProduct: updateProduct,
+  getSingleProduct: getSingleProduct
 };

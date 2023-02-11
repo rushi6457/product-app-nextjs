@@ -22,6 +22,7 @@ app.post("/addproduct", productRoute.addProducts);
 app.get("/getproducts", productRoute.getProducts);
 app["delete"]("/deleteProduct/:id", productRoute.deleteProduct);
 app.patch("/updateproduct/:id", productRoute.updateProduct);
+app.get("/singleproduct/:id", productRoute.getSingleProduct);
 app.get("/", function (req, res) {
   return res.send("HELLO");
 });

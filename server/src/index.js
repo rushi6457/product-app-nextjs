@@ -12,6 +12,7 @@ app.post("/addproduct",  productRoute.addProducts)
 app.get("/getproducts", productRoute.getProducts)
 app.delete("/deleteProduct/:id",productRoute.deleteProduct)
 app.patch("/updateproduct/:id",productRoute.updateProduct)
+app.get("/singleproduct/:id",productRoute.getSingleProduct)
 app.get("/", (req,res)=> res.send("HELLO"))
 
 app.listen(process.env.PORT ,async ()=>{
