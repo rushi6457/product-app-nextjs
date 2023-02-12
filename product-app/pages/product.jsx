@@ -5,16 +5,15 @@ import React, { useEffect, useState } from 'react';
 
 const Product = () => {
     const [data,setData] = useState([])
-    const [newprice,setNewPrice] = useState({
-        price:''
-    })
+    const [page,setPage] = useState(1)
+    const [sort,setSort] = useState('asc')
      const { isOpen, onOpen, onClose } = useDisclosure()
     const initialRef = React.useRef(null)
     const finalRef = React.useRef(null);
-
+    const limit =5
         useEffect(()=>{
             function getData (){
-            axios.get('http://localhost:8080/getproducts')
+            axios.get(`http://localhost:8080/getproducts`)
             .then((res)=>setData(res.data.message))
         }
         getData()
@@ -28,37 +27,50 @@ const Product = () => {
     }
 
     const handleEdit = async(el) =>{
-        console.log(el);
-        el.price = setNewPrice({...newprice})
+        // console.log(el);
+        // el.price = setNewPrice({...newprice})
 
-        await axios.patch(`http://localhost:8080/updateproduct/${el._id}`,{
-            
-        })
-    //    setNewPrice({...newprice})
+        // await axios.patch(`http://localhost:8080/updateproduct/${el._id}`,{
+        // })
+   
     }
+
+    
+
+    const handleSort = (e)=>{
+        if(e.target.value === 'asc'){
+            data.sort((a,b)=>{
+                console.log(a.price - b.price)
+            })
+        }
+        else{
+            data.sort((a,b)=>{
+                 console.log(b.price - a.price)
+            })
+               
+        }
+    }
+    useEffect(()=>{
+    },[])
 
     // console.log(data);
     return (
         <div>
-            <Flex>
-            <Container width={'fit-content'}>
-            <Select>
-                <option value="">Select order</option>
-                <option value=""></option>
-                <option value=""></option>
+            {/* <Flex> */}
+            <Container width={'fit-content'} margin='4'>
+            <Select onChange={handleSort}>
+                <option value="">Sort By Price</option>
+                <option value="asc">Low To High</option>
+                <option value="desc">High To Low</option>
             </Select>
             </Container>
-                <Container width={'fit-content'}>
-            <Select>
-                <option value=""></option>
-                <option value=""></option>
-                <option value=""></option>
-            </Select>
-            </Container>
-            </Flex>
+            {/* <Center> */}
+                <Heading textAlign={'center'}>Product Page</Heading>
+            {/* </Center> */}
+            {/* </Flex> */}
             <Grid gridTemplateColumns={'repeat(4,1fr)'} gap='6' padding={'10'} >
                  {
-                     data && data.map((el)=>{
+                     data?.map((el)=>{
                          return(
                         <GridItem border='1px solid' padding={'4'} borderRadius={'10'} >
                             <Center>

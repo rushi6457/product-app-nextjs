@@ -36,7 +36,7 @@ export default function Home() {
       const res = await axios.post(`http://localhost:8080/addproduct`,product)
       setData(res.data)
       console.log(res.data);
-      // router.push("/product")
+      router.push("/product")
   }
 
   return (

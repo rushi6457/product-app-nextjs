@@ -55,7 +55,7 @@ var getPagination = function getPagination(page, size) {
 };
 
 var getProducts = function getProducts(req, res) {
-  var _req$query, page, size, _getPagination, limit, offset, products;
+  var _req$query, page, size, sort, _getPagination, limit, offset, products;
 
   return regeneratorRuntime.async(function getProducts$(_context2) {
     while (1) {
@@ -63,10 +63,10 @@ var getProducts = function getProducts(req, res) {
         case 0:
           _context2.prev = 0;
           _req$query = req.query, page = _req$query.page, size = _req$query.size;
+          sort = req.query.sort;
           _getPagination = getPagination(page, size), limit = _getPagination.limit, offset = _getPagination.offset;
-          console.log(page, size, limit, offset);
           _context2.next = 6;
-          return regeneratorRuntime.awrap(ProductModel.find().limit(limit).skip(offset));
+          return regeneratorRuntime.awrap(ProductModel.find().sort(sort));
 
         case 6:
           products = _context2.sent;

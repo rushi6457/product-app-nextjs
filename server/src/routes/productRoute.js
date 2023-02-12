@@ -29,11 +29,12 @@ const getPagination = (page,size) =>{
 const getProducts =async (req, res) => {
   
     try {
-        
+
          const { page, size } = req.query;
+         let sort = req.query.sort
           const { limit, offset } = getPagination(page, size);
-        console.log(page, size, limit, offset);
-        let products = await ProductModel.find().limit(limit).skip(offset)
+        let products = await ProductModel.find().sort(sort)
+        
         // .limit(limit).skip(page * limit)
         // .sort(sortBy).skip(page * limit).limit(limit)
       
