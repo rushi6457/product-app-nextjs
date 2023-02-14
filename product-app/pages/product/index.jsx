@@ -1,6 +1,7 @@
 import Pagination from '@/components/Pagination';
 import { Button, Center, Container, Flex, Grid, GridItem, Heading, Image, Select, Text, useDisclosure } from '@chakra-ui/react';
 import axios from 'axios';
+import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 
 const Product = () => {
@@ -26,17 +27,6 @@ const Product = () => {
         
     }
 
-    const handleEdit = async(el) =>{
-        // console.log(el);
-        // el.price = setNewPrice({...newprice})
-
-        // await axios.patch(`http://localhost:8080/updateproduct/${el._id}`,{
-        // })
-   
-    }
-
-    
-
     const handleSort = (e)=>{
         if(e.target.value === 'asc'){
             data.sort((a,b)=>{
@@ -56,18 +46,9 @@ const Product = () => {
     // console.log(data);
     return (
         <div>
-            {/* <Flex> */}
-            <Container width={'fit-content'} margin='4'>
-            <Select onChange={handleSort}>
-                <option value="">Sort By Price</option>
-                <option value="asc">Low To High</option>
-                <option value="desc">High To Low</option>
-            </Select>
-            </Container>
-            {/* <Center> */}
+         
                 <Heading textAlign={'center'}>Product Page</Heading>
-            {/* </Center> */}
-            {/* </Flex> */}
+        
             <Grid gridTemplateColumns={'repeat(4,1fr)'} gap='6' padding={'10'} >
                  {
                      data?.map((el)=>{
@@ -80,14 +61,16 @@ const Product = () => {
                                 <Heading size='md'>{`Price: ${el.price}`}</Heading>
                                 <Flex justifyContent={'space-around'} gap='4' padding={'2'}>
                                     <Button variant={'solid'} colorScheme={'red'} onClick={()=>handleDelete(el._id)}>Delete</Button>
-                                    <Button variant={'solid'} colorScheme={'green'} onClick={()=>handleEdit(el)}>Edit Price</Button>
+                                    <Link href={`/product/${el._id}`}>
+                                        <Button variant={'solid'} colorScheme={'green'}>See More</Button>
+                                    </Link>
                                 </Flex>
                          </GridItem>
                     )
                 })
             }
             </Grid>
-            <Pagination/>
+         
         </div>
     );
 }
